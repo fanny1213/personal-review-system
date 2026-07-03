@@ -1813,6 +1813,13 @@
 
         /* 周复盘特定样式 */
         .week-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .week-nav-btn {
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             border: none;
             color: white;
@@ -1825,6 +1832,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .week-nav-btn:hover {
@@ -1835,13 +1843,17 @@
         .week-display {
             flex: 1;
             text-align: center;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--text-primary);
             background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            padding: 10px 20px;
+            padding: 10px 12px;
             border-radius: 12px;
             border: 2px solid var(--purple-lighter);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
         }
 
         /* 周目标样式 */
@@ -6633,9 +6645,12 @@
             const weekNumber = Math.ceil((pastDays + firstDayOfYear.getDay() + 1) / 7);
 
             if (startYear === endYear) {
-                return `第${weekNumber}周 · ${startYear}年${startMonth}月${startDay}-${endMonth}月${endDay}日`;
+                if (startMonth === endMonth) {
+                    return `第${weekNumber}周 · ${startMonth}/${startDay}-${endDay}`;
+                }
+                return `第${weekNumber}周 · ${startMonth}/${startDay}-${endMonth}/${endDay}`;
             } else {
-                return `第${weekNumber}周 · ${startYear}年${startMonth}月${startDay}-${endYear}年${endMonth}月${endDay}日`;
+                return `第${weekNumber}周 · ${startYear}.${startMonth}/${startDay}-${endYear}.${endMonth}/${endDay}`;
             }
         }
 
